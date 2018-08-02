@@ -30,57 +30,22 @@
                     </form>
                 </li>
             </ul>
-
-            <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Login
-                </a>
-                <div class="dropdown-menu bg-success" aria-labelledby="navbarDropdown">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Username">
-                    <input class="form-control mr-sm-2" type="password" placeholder="Password">
-                    <a class="dropdown-item text-light" href="#">Login</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-light" href="#">Sign Up</a>
-                </div>
-            </div>
         </div>
     </div>
 </nav>
 
 <div class="container">
-    <header class="jumbotron" style="margin-top: 10px; font-size: 2em; padding-bottom: 0.5rem">
-        <div class="container">
-            <h1 style="text-align: center;">Welcome to Afeka Kickstarter!</h1>
-            <div class="row">
-                <div class="col-6" style="padding-left: 0;">
-                    <h5>Explore # live projects</h5>
-                </div>
-                <div class="col-6" style="text-align: right; padding-right: 0;">
-                    <h5>Kicked out # projects</h5>
-                </div>
-            </div>
-            <div class="row">
-                <p>
-                    <a class="btn btn-success btn-lg" href="" style="margin-top: 35px">Add new Project</a>
-                </p>
-            </div>
+    <form id="signup">
+        <div class="form-group">
+            <label for="username">User Name</label>
+            <input type="text" class="form-control" id="username" placeholder="Enter user name">
         </div>
-    </header>
-
-    <div class="row">
-        <div id="projects" class="md-col-3 sm-col-12">
-            <div class="card" style="width:300px">
-                <a href="">
-                    <img class="card-img-top" src="https://pbs.twimg.com/profile_images/430537163764031488/Z572D_EP_400x400.jpeg" alt="Card image">
-                </a>
-                <div class="card-body">
-                    <h4 class="card-title">Flappy Bird</h4>
-                    <h5>#% Funded</h5>
-                    <a href="#" class="btn btn-success">Donate</a>
-                </div>
-            </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
-    </div>
+        <button type="submit" class="btn btn-success">Sign up!</button>
+    </form>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
