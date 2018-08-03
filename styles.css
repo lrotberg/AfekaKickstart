@@ -5,3 +5,13 @@
     border-radius: 10%;
     padding: 15px 15px;
 }
+
+.login {
+	max-width: 90%;
+	margin: 0 auto;
+}
+
+#projectImage {
+	max-height: 400px;
+	margin: auto;
+}
