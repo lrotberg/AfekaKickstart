@@ -35,14 +35,14 @@
 </nav>
 
 <div class="container">
-    <form id="signup">
+    <form id="signup" method="POST">
         <div class="form-group">
-            <label for="singUpUsername">User Name</label>
-            <input type="text" class="form-control" id="singUpUsername" placeholder="Enter user name">
+            <label for="signUpUsername">User Name</label>
+            <input type="text" class="form-control" name="signUpUsername" placeholder="Enter user name">
         </div>
         <div class="form-group">
-            <label for="singUpUserPassword">Password</label>
-            <input type="password" class="form-control" id="singUpUserPassword" placeholder="Password">
+            <label for="signUpUserPassword">Password</label>
+            <input type="password" class="form-control" name="signUpUserPassword" placeholder="Password">
         </div>
         <button type="submit" class="btn btn-success">Sign up!</button>
     </form>

@@ -1,3 +1,29 @@
+<?php
+	session_start();
+	if (isset($_SESSION['id'])) {
+		$rightSide = '<h6>Hello '.$_SESSION['un'].'</h6><button btn btn-info id="logout">Logout</button>';
+	}
+	else {
+		$_SESSION['un'] = 'Guest';
+		$rightSide = '<div class="nav-item dropdown">
+		                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		                    Login
+		                </a>
+		                <div class="dropdown-menu bg-success" aria-labelledby="navbarDropdown">
+		                	<form id="login-form">
+			                	<label class="text-white" for="loginUserName" style="margin-bottom: 0; margin-left: .5rem">User Name</label>
+			                    <input class="form-control mr-sm-2 login" name="loginUserName" type="text" placeholder="">
+			                    <label class="text-white" for="loginPassword" style="margin-bottom: 0; margin-left: .5rem">Password</label>
+			                    <input class="form-control mr-sm-2 login" name="loginPassword" type="password" placeholder="">
+			                    <input type="submit" class="dropdown-item text-light" value="Login">
+			                </form>
+			                <div class="dropdown-divider"></div>
+			                <a class="dropdown-item text-light" href="/afekakickstart/signup">Sign Up</a>
+		                </div>
+		            </div>';
+	}
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -31,20 +57,7 @@
                 </li>
             </ul>
 
-            <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Login
-                </a>
-                <div class="dropdown-menu bg-success" aria-labelledby="navbarDropdown">
-                	<label class="text-white" for="loginUserName" style="margin-bottom: 0; margin-left: .5rem">User Name</label>
-                    <input class="form-control mr-sm-2 login" id="loginUserName" type="text" placeholder="">
-                    <label class="text-white" for="loginPassword" style="margin-bottom: 0; margin-left: .5rem">Password</label>
-                    <input class="form-control mr-sm-2 login" id="loginPassword" type="password" placeholder="">
-                    <a class="dropdown-item text-light" id="" href="#">Login</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-light" href="/afekakickstart/signup">Sign Up</a>
-                </div>
-            </div>
+            <?php echo $rightSide; ?>
         </div>
     </div>
 </nav>
@@ -70,19 +83,46 @@
     </header>
 
     <div class="row">
-        <div id="projects" class="md-col-3 sm-col-12">
-            <div class="card" style="width:300px">
-                <a href="/afekakickstart/project">
-                    <img class="card-img-top" src="https://pbs.twimg.com/profile_images/430537163764031488/Z572D_EP_400x400.jpeg" alt="Card image">
-                </a>
-                <div class="card-body">
-                    <h4 class="card-title">Flappy Bird</h4>
-                    <h5>#% Funded</h5>
-                    <a href="#" class="btn btn-success">Donate</a>
-                </div>
-            </div>
-        </div>
+    	<?php
+    		$db = mysqli_connect("127.0.0.1", "root", "", "afekakickstart");
+    		$selectAllProjects = "SELECT *,(SELECT SUM(amount) FROM `donation` WHERE donation.project_id = project.id) as raised FROM `project`";
+			$data = mysqli_fetch_all(mysqli_query($db,$selectAllProjects),MYSQLI_ASSOC);
+			foreach ($data as $key => $row) {
+				echo '<div id="projects" class="md-col-3 sm-col-12">
+			            <div class="card" style="width:300px">
+			                <a href="/afekakickstart/project?proj='.$row['name'].'">
+			                    <img class="card-img-top" src="images/'.$row['id'].'-thumb.jpg" alt="Card image">
+			                </a>
+			                <div class="card-body">
+			                    <h4 class="card-title">'.$row['name'].'</h4>
+			                    <h5>'.$row['raised'].' Of '.$row['amount'].' Funded</h5>
+			                    <button class="proj btn btn-success" data-name="'.$row['name'].'" data-id="'.$row['id'].'">Donate</button>
+			                </div>
+			            </div>
+			        </div>';
+			}
+			mysqli_close($db);
+    	?>
+        
     </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="donateModal" tabindex="-1" role="dialog" aria-labelledby="donateModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="donateModalLongTitle">Donate</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
