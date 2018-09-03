@@ -1,0 +1,50 @@
+[
+{"type":"header","version":"4.7.9","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"afekakickstart"},
+{"type":"table","name":"donation","database":"afekakickstart","data":
+[
+{"id":"1","project_id":"1","donator_id":"1","date":"2018-08-03 11:07:06","amount":"200"},
+{"id":"2","project_id":"1","donator_id":"4","date":"2018-08-03 20:17:21","amount":"100"},
+{"id":"3","project_id":"1","donator_id":"4","date":"2018-08-03 20:18:34","amount":"12"},
+{"id":"4","project_id":"1","donator_id":"4","date":"2018-08-03 20:20:10","amount":"13"},
+{"id":"5","project_id":"1","donator_id":"6","date":"2018-08-04 19:59:20","amount":"105"},
+{"id":"6","project_id":"1","donator_id":"1","date":"2018-08-04 20:28:11","amount":"50"},
+{"id":"7","project_id":"1","donator_id":"8","date":"2018-08-04 20:28:47","amount":"100"},
+{"id":"9","project_id":"1","donator_id":"4","date":"2018-08-05 17:22:03","amount":"40"},
+{"id":"12","project_id":"1","donator_id":"4","date":"2018-08-25 10:23:37","amount":"500"}
+]
+}
+,{"type":"table","name":"permission","database":"afekakickstart","data":
+[
+
+]
+}
+,{"type":"table","name":"permissions","database":"afekakickstart","data":
+[
+{"id":"1","type":"guest"},
+{"id":"2","type":"user"},
+{"id":"3","type":"admin"}
+]
+}
+,{"type":"table","name":"project","database":"afekakickstart","data":
+[
+{"id":"1","name":"Flappy Bird","creator":"Lior Rotberg","overview":"Multiplayer web flappy bird game using Node","amount":"1000","start_date":"2018-08-03 00:00:00","end_date":"2018-08-31 20:00:00","active":"0","funded":"1"},
+{"id":"2","name":"The Lancasters sends their regards","creator":"Stark","overview":"A detailed view of the war of the roses","amount":"2200","start_date":"2018-07-01 00:00:00","end_date":"2018-08-04 08:00:00","active":"0","funded":"0"},
+{"id":"8","name":"stam","creator":"mmm","overview":"fnnlfndfdfghdhg","amount":"200","start_date":"2018-08-26 10:50:18","end_date":"2018-08-31 00:00:00","active":"0","funded":"0"}
+]
+}
+,{"type":"table","name":"users","database":"afekakickstart","data":
+[
+{"ID":"1","USERNAME":"Lior Rotberg","PASSWORD":"4A83C7116DDDC8CA4D26D9CAF39264DBBE2115BF088E8A2482D3D20D4F40DC1F","PERMISSIONS":"2"},
+{"ID":"2","USERNAME":"John Smith","PASSWORD":"DF7F8868D3FAFBE7457EDF8B55C5F28F6E857972301FA45CBCB7C18774811FEB","PERMISSIONS":"2"},
+{"ID":"4","USERNAME":"Stark","PASSWORD":"3E0109C7650E7101A438F0F08C3F46FE2124A9E573ACF9CAB95CDBB555274E70","PERMISSIONS":"2"},
+{"ID":"5","USERNAME":"Weasley","PASSWORD":"239E80B6E1915EFE6B8DC3C0409EF83C244DA28D4709878917DB9E6E7077E24E","PERMISSIONS":"2"},
+{"ID":"6","USERNAME":"Eldad","PASSWORD":"3E0109C7650E7101A438F0F08C3F46FE2124A9E573ACF9CAB95CDBB555274E70","PERMISSIONS":"2"},
+{"ID":"7","USERNAME":"Adi","PASSWORD":"3E0109C7650E7101A438F0F08C3F46FE2124A9E573ACF9CAB95CDBB555274E70","PERMISSIONS":"2"},
+{"ID":"8","USERNAME":"Mami","PASSWORD":"BCC7536E01FDFBDC8297F0758EFBC47CC0239788EB994CCAAC3C72AF9CCD802E","PERMISSIONS":"2"},
+{"ID":"9","USERNAME":"Admin","PASSWORD":"FCF5DD353E95EBFB9F169C43C18E31A560C555481591A9045351F22930991503","PERMISSIONS":"3"},
+{"ID":"10","USERNAME":"mmm","PASSWORD":"3E0109C7650E7101A438F0F08C3F46FE2124A9E573ACF9CAB95CDBB555274E70","PERMISSIONS":"2"},
+{"ID":"11","USERNAME":"kkfso","PASSWORD":"3E0109C7650E7101A438F0F08C3F46FE2124A9E573ACF9CAB95CDBB555274E70","PERMISSIONS":"2"}
+]
+}
+]
