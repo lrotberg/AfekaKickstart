@@ -1,23 +1,3 @@
-// $(document).ready(function(){
-// 	$.ajax({
-// 		url: "actions/test.php", 
-// 		type: "POST",
-// 	  	data: {username: "exolite", password: "1234"},
-// 	  	success: function(data){
-// 	  		var json = JSON.parse(data);
-// 	  		for(var k in json) {
-// 	  			var html = '<div class="card" style="width: 18rem;">';
-// 					html += '<div class="card-body">';
-// 					html +=  '<h5 class="card-title">' + json[k].USERNAME + '</h5>';
-//     				html +=	   '<p class="card-text">' + json[k].PASSWORD + '</p>';
-//   					html +=  '</div>';
-// 					html += '</div>';
-// 				$('#users').append(html);
-// 	  		}
-// 	  	}
-// 	});
-// });
-
 $(document).ready(function(){
 	$("#signup").on('submit', function(e){
 		e.preventDefault();
@@ -68,7 +48,7 @@ $(document).ready(function(){
 									$(this).attr('data-name') +
 									'</h2><div><form class="donation"><input type="hidden" name="pid" value="' +
 									$(this).attr('data-id') +
-									'"><input type="number" name="pamount" min="1"><input type="submit" class="btn btn-secondary" value="Donate now!">' +
+									'"><input type="number" name="pamount" min="1" style="margin-right: 10px;"><input type="submit" class="btn btn-success" value="Donate now!">' +
 									'</form></div>'
 									);
 			$('.donation').on('submit',function(e){
@@ -91,6 +71,32 @@ $(document).ready(function(){
 				});
 			});
 			$('#donateModal').modal('show');
+		});
+	});
+
+	$('#submitProject').on('submit', function(e){
+		e.preventDefault();
+		$.ajax({
+			url: "actions/newProject.php", 
+			type: "POST",
+			data: {
+				action: $("input[name = 'action']").val(),
+				name: $("input[name = 'projectName']").val(),
+				creator: $("input[name = 'projectCreator']").val(),
+				overview: $("textarea[name = 'projectPreview']").val(),
+				amount: $("input[name = 'projectAmount']").val(),
+				end_date: $("input[id = 'endDate']").val(),
+				activeName: $("input[name = 'activeName']").val()
+			},
+			success: function(data){
+				console.log(data);
+				var json = JSON.parse(data);
+				if (json.status === 'ok') {
+					window.location.href = json.url;
+				}
+				else 
+					window.location.href = 'index.php';
+			}
 		});
 	});
 });

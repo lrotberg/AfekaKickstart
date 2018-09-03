@@ -15,3 +15,14 @@
 	max-height: 400px;
 	margin: auto;
 }
+
+.projectHeader {
+	font-size: 3em;
+	font-weight: 700;
+	letter-spacing: 2px;
+}
+
+.project-overview {
+	color: black;
+	font-size: 2em;
+}

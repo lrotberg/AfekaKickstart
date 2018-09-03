@@ -34,12 +34,13 @@
 	}
 
 	if ($_POST['action'] == 'login') {
-		$selectQuery = "SELECT users.id FROM `users` inner join `permissions` on permissions.id = users.permissions where username = '$un' and password = '$hash'";
+		$selectQuery = "SELECT users.id, permissions.id as permissionsType FROM `users` inner join `permissions` on permissions.id = users.permissions where username = '$un' and password = '$hash'";
 		$data = mysqli_fetch_all(mysqli_query($db,$selectQuery),MYSQLI_ASSOC);
 		if (!empty($data)) {
 			$array = array('status' => 'ok', 'data' => $data[0]['id']);
 			$_SESSION['id'] = $array['data'];
 			$_SESSION['un'] = $un;
+			$_SESSION['type'] = $data[0]['permissionsType'];
 		}
 		else {
 			$array = array('status' => 'bad', 'message' => 'Invalid username or password');

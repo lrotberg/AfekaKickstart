@@ -2,11 +2,9 @@
 	session_start();
 	if (isset($_SESSION['id'])) {
 		$rightSide = '<h6 class="navbar-nav text-white" style="font-size: 1.3em;">Hello '.$_SESSION['un'].'!</h6><a class="nav-link text-light" href="#" id="logout">Logout</a>';
-		// <button class="btn btn-link text-light" id="logout">Logout</button>';
 	}
 	else {
 		$_SESSION['un'] = 'Guest';
-		$_SESSION['type'] = 0;
 		$rightSide = '<div class="nav-item dropdown">
 		                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		                    Login
@@ -58,64 +56,67 @@
     </div>
 </nav>
 
-<div class="container">
-    <header class="jumbotron" style="margin-top: 10px; font-size: 2em; padding-bottom: 0.5rem">
-        <div class="container">
-            <h1 style="text-align: center;">Welcome to Afeka Kickstarter!</h1>
-            <div class="row">
-                <div class="col-6" style="padding-left: 0;">
-                	<?php
-                		$db = mysqli_connect("127.0.0.1", "root", "", "afekakickstart");
-
-                		$updateActiveProjects = "UPDATE `project` set project.active = 0 where project.end_date < NOW()";
-						$data = mysqli_query($db, $updateActiveProjects);
-
-                		$sumActiveProjects = "SELECT SUM(`active` = 1) as sum, SUM(`funded` = 1) as funded FROM `project`";
-                		$data = mysqli_fetch_all(mysqli_query($db,$sumActiveProjects),MYSQLI_ASSOC);
-                		echo '<h5>Explore '.$data[0]['sum'].' live projects</h5>';
-                		mysqli_close($db);
-                	 ?>
-                </div>
-                <div class="col-6" style="text-align: right; padding-right: 0;">
-                    <h5>Kicked out 
-                    	<?php 
-                    		echo $data[0]['funded'];
-                    	?>	
-                     projects</h5>
-                </div>
-            </div>
-            <div class="row">
-                <p>
-                    <a id="newProject" class="btn btn-success btn-lg" href="/afekakickstart/new" style="margin-top: 35px">Add new Project</a>
-                </p>
-            </div>
+<div class="container" style="margin-top: 15px;">
+    <div class="row" style="border-bottom: 2px solid #28a745; margin-bottom: 15px;">
+        <div class="col-12">
+            <h2>Active Projects</h2>
         </div>
-    </header>
-
+    </div>
     <div class="row">
-    	<?php
-    		$db = mysqli_connect("127.0.0.1", "root", "", "afekakickstart");
-    		$selectAllActiveProjects = "SELECT *,(SELECT SUM(amount) FROM `donation` WHERE donation.project_id = project.id) as raised FROM `project` WHERE `active` = 1";
-			$data = mysqli_fetch_all(mysqli_query($db,$selectAllActiveProjects),MYSQLI_ASSOC);
-			foreach ($data as $key => $row) {
-				echo '<div id="projects" class="md-col-3 sm-col-12" style="margin: 0 5px;">
-			            <div class="card" style="width:300px">
-			                <a href="/afekakickstart/project?proj='.$row['name'].'">
-			                    <img class="card-img-top projectImage" src="images/'.$row['id'].'-thumb.jpg" alt="Card image">
-			                </a>
-			                <div class="card-body">
-			                    <h4 class="card-title">'.$row['name'].'</h4>
-			                    <h5>'.$row['raised'].' of '.$row['amount'].' Funded</h5>
-			                    <button class="proj btn btn-success" data-name="'.$row['name'].'" data-id="'.$row['id'].'">Donate</button>
-			                </div>
-			            </div>
-			        </div>';
-			}
-			mysqli_close($db);
-    	?>
-        
+        <?php
+            $db = mysqli_connect("127.0.0.1", "root", "", "afekakickstart");
+            $selectAllProjects = "SELECT *,(SELECT SUM(amount) FROM `donation` WHERE donation.project_id = project.id) as raised FROM `project` where active = 1";
+            $data = mysqli_fetch_all(mysqli_query($db,$selectAllProjects),MYSQLI_ASSOC);
+            foreach ($data as $key => $row) {
+                if (empty($row['raised']))
+                    $row['raised'] = 0;
+                echo '<div id="projects" class="md-col-3 sm-col-12" style="margin: 0 5px;">
+                        <div class="card" style="width:300px">
+                            <a href="/afekakickstart/project?proj='.$row['name'].'">
+                                <img class="card-img-top projectImage" src="images/'.$row['id'].'-thumb.jpg" alt="Card image">
+                            </a>
+                            <div class="card-body">
+                                <h4 class="card-title">'.$row['name'].'</h4>
+                                <h5>'.$row['raised'].' of '.$row['amount'].' Funded</h5>
+                                <button class="proj btn btn-success" data-name="'.$row['name'].'" data-id="'.$row['id'].'">Donate</button>
+                            </div>
+                        </div>
+                    </div>';
+            }
+            mysqli_close($db);
+        ?>
+    </div>
+    <div class="row" style="border-bottom: 2px solid #28a745; margin-bottom: 15px; margin-top: 15px;">
+        <div class="col-12">
+            <h2>Past Projects</h2>
+        </div>
+    </div>
+    <div class="row">
+        <?php
+            $db = mysqli_connect("127.0.0.1", "root", "", "afekakickstart");
+            $selectAllProjects = "SELECT *,(SELECT SUM(amount) FROM `donation` WHERE donation.project_id = project.id) as raised FROM `project` where active = 0";
+            $data = mysqli_fetch_all(mysqli_query($db,$selectAllProjects),MYSQLI_ASSOC);
+            foreach ($data as $key => $row) {
+                if (empty($row['raised']))
+                    $row['raised'] = 0;
+                echo '<div id="projects" class="md-col-3 sm-col-12" style="margin: 0 5px;">
+                        <div class="card" style="width:300px">
+                            <a href="/afekakickstart/project?proj='.$row['name'].'">
+                                <img class="card-img-top projectImage" src="images/'.$row['id'].'-thumb.jpg" alt="Card image">
+                            </a>
+                            <div class="card-body">
+                                <h4 class="card-title">'.$row['name'].'</h4>
+                                <h5>'.$row['raised'].' of '.$row['amount'].' Funded</h5>
+                                <button class="proj btn btn-success" data-name="'.$row['name'].'" data-id="'.$row['id'].'">Donate</button>
+                            </div>
+                        </div>
+                    </div>';
+            }
+            mysqli_close($db);
+        ?>
     </div>
 </div>
+
 <!-- Modal -->
 <div class="modal fade" id="donateModal" tabindex="-1" role="dialog" aria-labelledby="donateModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
